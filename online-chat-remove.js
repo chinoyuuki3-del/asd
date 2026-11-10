@@ -42,6 +42,7 @@ modify('game/public/multiplayer.css',s=>{
  s=s.split('\n').filter(line=>
   !/^\.(?:mpChat|mpIncoming)/.test(line)&&
   !/^@keyframes mpIncoming/.test(line)&&
+  !/^@media\(max-width:650px\)\{\.mpChat/.test(line)&&
   !/^\/\* v0\.4\.1: unobtrusive chat/.test(line)
  ).join('\n').replace('.mpChat{bottom:7px;right:7px}','');
  s+='\n/* v0.4.2 flight controls: no chat UI, exit remains accessible */\n'+
@@ -50,6 +51,17 @@ modify('game/public/multiplayer.css',s=>{
    'font:600 12px system-ui;cursor:pointer}\n'+
    '.mpLeaveFlight:hover{background:#123851}\n'+
    '@media(max-width:650px){.mpLeaveFlight{top:110px;right:8px;padding:6px 9px}}\n';
+ return s;
+});
+modify('game/test_server.js',s=>{
+ s=once(s,"x(a,{type:'chat',text:'こんにちは！'});assert.equal(last(b,'chat').text,'こんにちは！');","x(a,{type:'chat',text:'should be ignored'});assert.equal(last(b,'chat'),undefined);");
+ s=once(s,'2-player state/chat -> leave','2-player state; chat disabled -> leave');
+ return s;
+});
+modify('game/README.md',s=>{
+ s=s.replace('- リアルタイムチャット（送信するときだけ通信）','- チャット機能なし（飛行に集中できる画面）');
+ s=s.replace('- チャット欄に入力してEnterまたは送信','- チャットなし。操縦・招待・機体選択に集中できます');
+ s=s.replace('ロビー、通信、チャット','ロビー、2秒に1回の位置通信');
  return s;
 });
 console.log('A400M Online v0.4.2: all player chat removed; flight and 2-second state sync preserved');
