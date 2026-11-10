@@ -3,6 +3,6 @@ services:
     name: a400m-flight-lab-online
     runtime: node
     plan: free
-    buildCommand: unzip -oq 'A400M_Flight_Lab_Online_v0.4_Render (1).zip' -d game && node online-ui-fix.js && cd game && npm install --omit=dev
+    buildCommand: unzip -oq 'A400M_Flight_Lab_Online_v0.4_Render (1).zip' -d game && node online-ui-fix.js && node online-chat-remove.js && cd game && npm install --omit=dev
     startCommand: node game/server.js
     healthCheckPath: /health
