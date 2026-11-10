@@ -55,3 +55,5 @@ public/audio/suretigai.mp3
 - チャット入力欄・メッセージログ・受信チャット通知・チャット送受信をすべて削除。
 - 退出ボタンだけ右上に残し、フレンド追加、招待、2人の飛行、2秒ごとの座標通信は維持。
 - 新しい公開版には `online-chat-remove.js` を `online-ui-fix.js` の後に実行して適用。
+
+公開ビルド備考：v0.4.2 は `online-ui-fix.js` に続けて `online-chat-remove.js` を実行してからNodeサーバーを起動する設定です。
